@@ -36,27 +36,35 @@ class DetectaMao:
     def contar_dedo(self, marcas):
         """Retorna quantidade de dedos levantados"""
         contador_dedo = 0
+
+        dedos_levantados = []
         for marca in marcas:
-            # Dedo index
+            # Dedo indicador - 1
             if marca.landmark[5].y > marca.landmark[8].y and marca.landmark[7].y > \
                     marca.landmark[8].y:
                 contador_dedo += 1
-            # Dedo middle
+                dedos_levantados.append(1)
+            # Dedo middle - 2
             if marca.landmark[9].y > marca.landmark[12].y and marca.landmark[11].y > marca.landmark[12].y:
                 contador_dedo += 1
-            # Dedo ring
+                dedos_levantados.append(2)
+            # Dedo anelar - 3
             if marca.landmark[13].y > marca.landmark[16].y and marca.landmark[15].y > marca.landmark[16].y:
                 contador_dedo += 1
-            # Dedo pinky
+                dedos_levantados.append(3)
+            # Dedo mindinho - 4
             if marca.landmark[17].y > marca.landmark[20].y and marca.landmark[19].y > marca.landmark[20].y:
                 contador_dedo += 1
-            # Dedo thumb para esquerda
+                dedos_levantados.append(4)
+            # Dedo polegar para esquerda - 5
             if marca.landmark[2].x > marca.landmark[0].x and marca.landmark[4].x > marca.landmark[2].x and \
                     marca.landmark[4].x > marca.landmark[3].x:
                 contador_dedo += 1
-            # Dedo thumb para direita
+                dedos_levantados.append(5)
+            # Dedo polegar para direita - 5
             if marca.landmark[2].x < marca.landmark[0].x and marca.landmark[4].x < marca.landmark[2].x and \
                     marca.landmark[4].x < marca.landmark[3].x:
                 contador_dedo += 1
+                dedos_levantados.append(5)
 
-        return contador_dedo
+        return contador_dedo, dedos_levantados
