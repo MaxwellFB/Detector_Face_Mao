@@ -1,6 +1,7 @@
 from detecta_mao import DetectaMao
 from detecta_face import DetectaFace
 from detecta_face_mesh import DetectaFaceMesh
+from detecta_corpo import DetectaCorpo
 from quadro import Quadro
 import cv2
 import numpy as np
@@ -12,12 +13,13 @@ def main():
     background = cv2.imread('space-wallpaper-7.jpg', cv2.COLOR_RGB2BGR)
     background = cv2.resize(background, (1000, 500))
 
-    is_desenha = False
+    is_desenha = True
     # ------------------------- #
 
     mao = DetectaMao()
     face = DetectaFace()
     face_mesh = DetectaFaceMesh()
+    corpo = DetectaCorpo()
 
     cap = cv2.VideoCapture(0)
 
@@ -43,6 +45,7 @@ def main():
         marcas_mao = mao.detectar_mao(image)
         marcas_face = face.detectar_face(image)
         marcas_face_mesh = face_mesh.detectar_face_mesh(image)
+        marcas_corpo, marcas_segmentacao_corpo = corpo.detectar(image)
 
         cv2.putText(image, str(contador_dedo), (image.shape[1] - 100, 80), cv2.FONT_HERSHEY_SIMPLEX, 2,
                     (0, 0, 255), 2)
@@ -58,6 +61,8 @@ def main():
                 image = face.desenhar_box(image, marcas_face)
             if marcas_face_mesh:
                 image = face_mesh.desenhar_face_mesh(image, marcas_face_mesh)
+            if marcas_corpo:
+                image = corpo.desenhar(image, marcas_corpo)
 
         comando = verificar_comando(dedos_levantados)
         # TODO: Pensar em fazer essa selecao diferente, ficou grande e repetitivo (logo em seguida faz praticamente a
@@ -75,6 +80,8 @@ def main():
             quadro.escrever('3 - MedianBlur', (10, 240))
             quadro.escrever('4 - Erode', (10, 300))
             quadro.escrever('5 - Dilate', (10, 360))
+            # TODO: Separar corpo do menu
+            quadro.escrever('6 - Corpo', (10, 420))
             quadro.mostrar()
         # Face com background
         elif comando == 3:
@@ -127,6 +134,10 @@ def main():
             elif opcao_selecionada == 5:
                 if contador_dedo != 0:
                     image = cv2.dilate(image, np.ones((contador_dedo, contador_dedo), np.uint8))
+            # TODO: Tirar corpo deste local
+            elif opcao_selecionada == 6:
+                image = corpo.segmentar(image, marcas_segmentacao_corpo)
+
 
         cv2.imshow('Face', image)
         if cv2.waitKey(5) & 0xFF == 27:
