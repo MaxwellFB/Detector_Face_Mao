@@ -9,7 +9,7 @@ class DetectaFaceMesh:
         self.mp_drawing = mp.solutions.drawing_utils
         self.mp_face_mesh = mp.solutions.face_mesh
 
-        self.drawing_spec = self.mp_drawing.DrawingSpec(thickness=2, circle_radius=0, color=(255, 255, 255))
+        self.mp_drawing_spec = self.mp_drawing.DrawingSpec(thickness=2, circle_radius=0, color=(255, 255, 255))
 
         self.face_mesh = self.mp_face_mesh.FaceMesh(
             min_detection_confidence=0.5,
@@ -23,23 +23,17 @@ class DetectaFaceMesh:
 
     def desenhar_face_mesh(self, img, marcas):
         """Desenha a malha na face"""
-        if marcas == None:
-            return img
-
         for marca in marcas:
             self.mp_drawing.draw_landmarks(
                 image=img,
                 landmark_list=marca,
-                connections=self.mp_face_mesh.FACE_CONNECTIONS,
-                landmark_drawing_spec=self.drawing_spec,
-                connection_drawing_spec=self.drawing_spec)
+                connections=self.mp_face_mesh.FACEMESH_TESSELATION,
+                landmark_drawing_spec=None,
+                connection_drawing_spec=self.mp_drawing_spec)
         return img
 
     def coletar_face_mesh(self, img, marcas, background_preto=True):
         """Pega somente a face colorida"""
-        if marcas == None:
-            return img
-
         img_original = img.copy()
         mask = img.copy()
 

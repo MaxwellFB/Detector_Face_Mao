@@ -21,12 +21,10 @@ Quase tudo está sendo feito utilizado MediaPipe (com algumas pequenas alteraç�
 ### Pré-requisitos
 
 #### Bibliotecas:
-* Python v3.9.5
-  
-
-* MediaPipe
-* Numpy
-* OpenCV
+* Python v3.9.6
+* MediaPipe v0.8.7
+* Numpy v1.19.5
+* OpenCV v4.5.3
 
 
 ### Instalação
