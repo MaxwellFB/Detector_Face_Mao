@@ -61,7 +61,7 @@ Existem 5 filtros que serão aplicadas na imagem da webcam em tempo real, confor
 * Erode
 * Dilate
 
-6 - Detecta corpo [Temporário]
+6 - Detecta corpo  # Desativado
 
 **Atenção:** Código configurado para utilizar webcam
 

@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 import mediapipe as mp
 
+
 class DetectaFaceMesh:
     def __init__(self):
         self.mp_drawing = mp.solutions.drawing_utils
@@ -15,29 +16,31 @@ class DetectaFaceMesh:
             min_detection_confidence=0.5,
             min_tracking_confidence=0.5)
 
-    def detectar_face_mesh(self, img):
+    def detectar(self, img):
         """Pega as coordenadas das marcas da malha da face"""
         results = self.face_mesh.process(img)
 
         return results.multi_face_landmarks
 
-    def desenhar_face_mesh(self, img, marcas):
+    def desenhar(self, img, marcas):
         """Desenha a malha na face"""
+        # Faz copia, caso contrario altera a imagem passada como parametro, influenciando em quem chamou
+        imagem = img.copy()
         for marca in marcas:
             self.mp_drawing.draw_landmarks(
-                image=img,
+                image=imagem,
                 landmark_list=marca,
                 connections=self.mp_face_mesh.FACEMESH_TESSELATION,
                 landmark_drawing_spec=None,
                 connection_drawing_spec=self.mp_drawing_spec)
-        return img
+        return imagem
 
-    def coletar_face_mesh(self, img, marcas, background_preto=True):
-        """Pega somente a face colorida"""
+    def coletar(self, img, marcas, background_preto=True):
+        """Pega somente a face da pessoa colorida"""
         img_original = img.copy()
         mask = img.copy()
 
-        img_com_mesh = self.desenhar_face_mesh(img, marcas)
+        img_com_mesh = self.desenhar(img, marcas)
 
         # Identificacao dos contornos do rosto para criar mascara
         img_gray = cv2.cvtColor(img_com_mesh, cv2.COLOR_BGR2GRAY)
@@ -86,7 +89,6 @@ class DetectaFaceMesh:
         # Transforma background em alpha e coloca face dentro da imagem
         background = cv2.cvtColor(background, cv2.COLOR_BGR2BGRA)
         for c in range(0, 3):
-            background[y1:y2, x1:x2, c] = (alpha_s * dst[:, :, c] +
-                                       alpha_l * background[y1:y2, x1:x2, c])
+            background[y1:y2, x1:x2, c] = (alpha_s * dst[:, :, c] + alpha_l * background[y1:y2, x1:x2, c])
 
         return cv2.cvtColor(background, cv2.COLOR_BGRA2BGR)

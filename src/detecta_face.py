@@ -13,7 +13,7 @@ class DetectaFace:
             model_selection=0,
             min_detection_confidence=0.5)
 
-    def detectar_face(self, img):
+    def detectar(self, img):
         """Detecta face e retorna coordenadas dos boxes. Recebe imagem BGR"""
         results = self.face_detection.process(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
 
@@ -37,7 +37,7 @@ class DetectaFace:
     def desenhar_box(self, img, boxes):
         """Desenha box da face na imagem"""
         # Desenha box e alguns pontos utilizando coordenadas normalizadas
-        #for box in boxes:
+        # for box in boxes:
         #    self.mp_drawing.draw_detection(img, box)
 
         # Desenha somente box utilizando coordenadas reais

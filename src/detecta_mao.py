@@ -15,23 +15,25 @@ class DetectaMao:
             min_detection_confidence=0.5,
             min_tracking_confidence=0.5)
 
-    def detectar_mao(self, img):
+    def detectar(self, img):
         """Detecta mao e retorna coordenadas dedos. Recebe imagem BGR"""
         results = self.hands.process(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
 
         return results.multi_hand_landmarks
 
-    def desenhar_mao(self, img, marcas):
+    def desenhar(self, img, marcas):
         """Desenha os ligamentos da mao"""
+        # Faz copia, caso contrario altera a imagem passada como parametro, influenciando em quem chamou
+        imagem = img.copy()
         for marca in marcas:
             self.mp_drawing.draw_landmarks(
-                image=img,
+                image=imagem,
                 landmark_list=marca,
                 connections=self.mp_hands.HAND_CONNECTIONS,
                 landmark_drawing_spec=self.mp_drawing_styles.get_default_hand_landmarks_style(),
                 connection_drawing_spec=self.mp_drawing_styles.get_default_hand_connections_style())
 
-        return img
+        return imagem
 
     def contar_dedo(self, marcas):
         """Retorna quantidade de dedos levantados"""

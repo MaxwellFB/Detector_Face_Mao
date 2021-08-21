@@ -20,7 +20,7 @@ class Quadro:
 
     def criar(self, tamanho=(100, 100, 3)):
         """Cria quadro com tamanho informado"""
-        self.quadro = np.full_like(tamanho, self.background_color)
+        self.quadro = np.full_like(tamanho, self.background_color).astype(np.uint8)
 
     def escrever(self, texto, pos):
         """Escreve texto no quadro"""
