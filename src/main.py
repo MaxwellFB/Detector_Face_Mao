@@ -41,7 +41,7 @@ class Sistema:
             1 = Menu
             2 = Filtros imagem
             3 = Face mesh background
-            4 = Corpo # desativado
+            4 = Jogos # Em breve
         """
         self.atividades_inicia = []
         self.atividades_continua = [0]
@@ -50,7 +50,7 @@ class Sistema:
         self.atividades_usam_mao = [0, 1, 2]
         self.atividades_usam_face = []
         self.atividades_usam_face_mesh = [3]
-        self.atividades_usam_corpo = []
+        self.atividades_usam_corpo = [4]
 
         self.atividades_permitidas_serem_iniciadas = []
 
@@ -81,7 +81,7 @@ class Sistema:
             atividades_temp = self.atividades_inicia.copy()
             for idx, atividade in enumerate(self.atividades_inicia):
                 if atividade == 1:
-                    self.menu.iniciar(frame_originial)
+                    self.menu.iniciar()
                 elif atividade == 2:
                     self.filtros_imagem.iniciar(opcao_selecionada)
                 elif atividade == 3:
@@ -139,9 +139,13 @@ class Sistema:
             atividades_temp = self.atividades_termina.copy()
             for idx, atividade in enumerate(self.atividades_termina):
                 if atividade == 1:
-                    opcao_selecionada = self.menu.terminar()
-                    if 2 in self.atividades_permitidas_serem_iniciadas:
-                        self.atividades_inicia.append(2)
+                    menu, opcao_selecionada = self.menu.terminar()
+                    if menu >= 2.0 and menu < 3.0:
+                        if 2 in self.atividades_permitidas_serem_iniciadas:
+                            self.atividades_inicia.append(2)
+                    elif menu >= 3.0 and menu < 4.0:
+                        if 4 in self.atividades_permitidas_serem_iniciadas:
+                            self.atividades_inicia.append(4)
                 elif atividade == 2:
                     self.filtros_imagem.terminar()
                 elif atividade == 3:

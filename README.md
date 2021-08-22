@@ -3,7 +3,6 @@
 </p>
 
 # Detector de Face e Mão
-
 ```diff
 !! PROJETO EM DESENVOLVIMENTO !!
 ```
@@ -28,7 +27,6 @@ Quase tudo está sendo feito utilizado MediaPipe (com algumas pequenas alteraç�
 
 
 ### Instalação
-
 Pode ser instalado manualmente do Github ou rodando o seguinte comando:
 
     git clone https://github.com/MaxwellFB/Detector_Face_Mao.git
@@ -53,6 +51,8 @@ Coloca face dentro do background informado no início do arquivo “main.py”
 Encerra toda aplicação
 
 ### Funções
+
+#### Filtros
 Existem 5 filtros que serão aplicadas na imagem da webcam em tempo real, conforme a opção do menu selecionada. Para controlar a intensidade do filtro basta alternar a quantidade de dedos levantados (pode ser usado até 2 mãos — 10 dedos). Segue lista de filtros disponíveis:
 
 * Blur
@@ -61,10 +61,10 @@ Existem 5 filtros que serão aplicadas na imagem da webcam em tempo real, confor
 * Erode
 * Dilate
 
-6 - Detecta corpo  # Desativado
+#### Jogos
+Em breve
 
 **Atenção:** Código configurado para utilizar webcam
-
 
 ## Autor
 * **Maxwell F. Barbosa** - [MaxwellFB](https://github.com/MaxwellFB)
