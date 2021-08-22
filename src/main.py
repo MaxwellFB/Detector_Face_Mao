@@ -30,6 +30,11 @@ class Sistema:
         self.filtros_imagem = FiltrosImagem()
         self.face_mesh_background = FaceMeshBackground()
 
+        # Tempo que precisa ficar solicitando comando ate ele ser executado. Evita executar comando por engano
+        self.comando_atual = ''
+        self.delay_selec_comando = 10
+        self.contador_delay_selec_comando = 0
+
         """
         Atividades:
             0 = Sistema principal
@@ -172,26 +177,32 @@ class Sistema:
         """
         Comandos que podem ser realizado com a mao
 
-        :return: 0 = nenhum comando executado, 1 = encerrar, 2 = comando executado
+        :return: 0 = nenhum comando executado, 1 = encerrar, 2 = comando executado/solicitado
         """
         # Levantar indicador, anelar e mindinho para encerrar
         if len(dedos_levantados) == 3 and 1 in dedos_levantados and 3 in dedos_levantados and 4 in dedos_levantados:
-            return 1
+            if self.verificar_delay('Exit') == 1:
+                return 1
+            return 2
         # Levantar indicador e mindinho para acessar menu
         elif len(dedos_levantados) == 2 and 1 in dedos_levantados and 4 in dedos_levantados:
-            if not any([1 in self.atividades_inicia, 1 in self.atividades_continua, 1 in self.atividades_termina]):
-                self.atividades_inicia.append(1)
-                self.mudar_atividade_principal([0, 1])
-                self.atividades_permitidas_serem_iniciadas = [2]
+            if self.verificar_delay('Menu') == 1:
+                if not any([1 in self.atividades_inicia, 1 in self.atividades_continua, 1 in self.atividades_termina]):
+                    self.atividades_inicia.append(1)
+                    self.mudar_atividade_principal([0, 1])
+                    self.atividades_permitidas_serem_iniciadas = [2]
             return 2
         # Levantar indicador, mindinho e polegar para acessar face mesh com background
         elif len(dedos_levantados) == 3 and 1 in dedos_levantados and 4 in dedos_levantados and 5 in dedos_levantados:
-            if not any([3 in self.atividades_inicia, 3 in self.atividades_continua, 3 in self.atividades_termina]):
-                self.atividades_inicia.append(3)
-                self.mudar_atividade_principal([0, 3])
-                self.atividades_permitidas_serem_iniciadas = []
+            if self.verificar_delay('Mesh_background') == 1:
+                if not any([3 in self.atividades_inicia, 3 in self.atividades_continua, 3 in self.atividades_termina]):
+                    self.atividades_inicia.append(3)
+                    self.mudar_atividade_principal([0, 3])
+                    self.atividades_permitidas_serem_iniciadas = []
             return 2
 
+        # Informa que nenhum comando foi solicitado, entao limpa temporizador
+        self.verificar_delay('')
         # Nenhum comando foi acionado
         return 0
 
@@ -216,6 +227,17 @@ class Sistema:
             self.atividades_termina.append(atividade)
         self.atividades_continua = atividades_temp.copy()
 
+    def verificar_delay(self, comando):
+        """Tempo que precisa ficar solicitando o comando para executa-lo. Evita solicitar comando por engano"""
+        if self.comando_atual == comando and comando != '':
+            if self.contador_delay_selec_comando < self.delay_selec_comando:
+                self.contador_delay_selec_comando += 1
+                return 0
+            # Se acabou o delay, executa comando
+            return 1
+        self.comando_atual = comando
+        self.contador_delay_selec_comando = 0
+        return 0
 
 if __name__ == '__main__':
     main()
