@@ -2,6 +2,7 @@
 
 from abc import ABC
 
+
 class Atividade(ABC):
     def iniciar(self, *args, **kwargs):
         """O que sera feito quando a atividade for chamada pela primeira vez"""

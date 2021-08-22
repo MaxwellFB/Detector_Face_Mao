@@ -19,4 +19,5 @@ class FaceMeshBackground(Atividade):
         if marcas_face_mesh:
             mesh = self.face_mesh.coletar(imagem, marcas_face_mesh)
             imagem = self.face_mesh.colocar_face_mesh_background(mesh, self.background, 110, 80)
-        return imagem
+            return imagem
+        return self.background

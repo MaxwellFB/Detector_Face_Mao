@@ -18,20 +18,24 @@ class FiltrosImagem(Atividade):
         # Blur
         if self.opcao_selecionada == 1:
             if intensidade != 0:
+                intensidade += 1
                 imagem = cv2.blur(imagem, (intensidade, intensidade))
         # GaussianBlur
         elif self.opcao_selecionada == 2:
             if intensidade != 0:
+                intensidade += 1
                 # Obs: ksize precisa ser impar
                 imagem = cv2.GaussianBlur(imagem, (intensidade * 2 - 1, intensidade * 2 - 1), 0)
         # MedianBlur
         elif self.opcao_selecionada == 3:
             if intensidade != 0:
+                intensidade += 1
                 # Obs: ksize precisa ser impar
                 imagem = cv2.medianBlur(imagem, intensidade * 2 - 1)
         # Erode
         elif self.opcao_selecionada == 4:
             if intensidade != 0:
+                intensidade += 1
                 imagem = cv2.erode(imagem, np.ones((intensidade, intensidade), np.uint8))
         # Dilate
         elif self.opcao_selecionada == 5:
