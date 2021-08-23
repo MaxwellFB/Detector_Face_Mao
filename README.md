@@ -2,7 +2,7 @@
   <img src="./img/Contador.jpg" />
 </p>
 
-# Detector de Face e Mão
+# Inteligência Artificial Em Tudo
 ```diff
 !! PROJETO EM DESENVOLVIMENTO !!
 ```
@@ -15,21 +15,20 @@ Detecta faces (box), malha da face, mão, conta quantos dedos estão levantados 
 
 Quase tudo está sendo feito utilizado MediaPipe (com algumas pequenas alterações).
 
+**Atenção:** Código configurado para utilizar webcam
+
 ## Instalações e preparações
 
 ### Pré-requisitos
 
-#### Bibliotecas:
+#### Python e bibliotecas:
 * Python v3.9.6
 * MediaPipe v0.8.7
 * Numpy v1.19.5
 * OpenCV v4.5.3
 
-
-### Instalação
-Pode ser instalado manualmente do Github ou rodando o seguinte comando:
-
-    git clone https://github.com/MaxwellFB/Detector_Face_Mao.git
+#### Repositórios:
+* [Skyer_Game_Like_Gym](https://github.com/MaxwellFB/Skier_Game_Like_Gym) — Copiar pasta inteira para dentro de “Jogos”
 
 ## Como rodar
 Todas as funcionalidades e alterações disponíveis estão dentro do arquivo “main.py”. Podendo elas serem acessadas via comandos com a mão (descrito na sessão “Funcionalidades”).
@@ -53,7 +52,7 @@ Encerra toda aplicação
 ### Funções
 
 #### Filtros
-Existem 5 filtros que serão aplicadas na imagem da webcam em tempo real, conforme a opção do menu selecionada. Para controlar a intensidade do filtro basta alternar a quantidade de dedos levantados (pode ser usado até 2 mãos — 10 dedos). Segue lista de filtros disponíveis:
+Filtros que serão aplicadas na imagem da webcam em tempo real, conforme a opção do menu selecionada. Para controlar a intensidade do filtro basta alternar a quantidade de dedos levantados (pode ser usado até 2 mãos — 10 dedos). Segue lista de filtros disponíveis:
 
 * Blur
 * GaussianBlur
@@ -62,9 +61,11 @@ Existem 5 filtros que serão aplicadas na imagem da webcam em tempo real, confor
 * Dilate
 
 #### Jogos
-Em breve
+Jogos que podem ser jogados utilizando o movimento do corpo:
 
-**Atenção:** Código configurado para utilizar webcam
+* Skier — Deve estar aparecendo no mínimo a cintura para cima, conforme move a parte superior do corpo o personagem vai para esquerda, reto ou direta (simulando o movimento de esquiar)
+
+**Atenção:** Devido as limitações de hardware o jogo pode ficar lento, isso pode ser parcialmente camuflado alterando no arquivo “src/Atividades/jogos.py” os parâmetros “low_speed” e “max_speed” para valores maiores.
 
 ## Autor
 * **Maxwell F. Barbosa** - [MaxwellFB](https://github.com/MaxwellFB)

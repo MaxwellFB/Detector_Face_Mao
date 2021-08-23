@@ -1,6 +1,7 @@
 from Detector_Face_Mao.src.Atividades.menu import Menu
 from Detector_Face_Mao.src.Atividades.filtros_imagem import FiltrosImagem
 from Detector_Face_Mao.src.Atividades.face_mesh_background import FaceMeshBackground
+from Detector_Face_Mao.src.Atividades.jogos import Jogos
 from detecta_mao import DetectaMao
 from detecta_face import DetectaFace
 from detecta_face_mesh import DetectaFaceMesh
@@ -29,6 +30,7 @@ class Sistema:
         self.menu = Menu()
         self.filtros_imagem = FiltrosImagem()
         self.face_mesh_background = FaceMeshBackground()
+        self.jogo = Jogos()
 
         # Tempo que precisa ficar solicitando comando ate ele ser executado. Evita executar comando por engano
         self.comando_atual = ''
@@ -41,7 +43,7 @@ class Sistema:
             1 = Menu
             2 = Filtros imagem
             3 = Face mesh background
-            4 = Jogos # Em breve
+            4 = Jogos
         """
         self.atividades_inicia = []
         self.atividades_continua = [0]
@@ -86,6 +88,8 @@ class Sistema:
                     self.filtros_imagem.iniciar(opcao_selecionada)
                 elif atividade == 3:
                     self.face_mesh_background.iniciar(self.face_mesh)
+                elif atividade == 4:
+                    self.jogo.iniciar(opcao_selecionada)
 
                 # Passa para proxima etapa
                 self.atividades_continua.append(atividade)
@@ -111,6 +115,8 @@ class Sistema:
                 marcas_face_mesh = self.face_mesh.detectar(frame_originial)
             if any(atividade in self.atividades_usam_corpo for atividade in self.atividades_continua):
                 marcas_corpo, marcas_segmentacao_corpo = self.corpo.detectar(frame_originial)
+                if marcas_corpo:
+                    frame = self.corpo.desenhar(frame_originial, marcas_corpo)
             # ----- Fim coleta informacoes ----- #
 
             # ----- Continua atividades ja iniciadas ----- #
@@ -130,6 +136,8 @@ class Sistema:
                     frame = self.filtros_imagem.continuar(frame, contador_dedo)
                 elif atividade == 3:
                     frame = self.face_mesh_background.continuar(frame_originial, marcas_face_mesh)
+                elif atividade == 4:
+                    self.jogo.continuar(marcas_corpo)
 
             self.atividades_continua = atividades_temp.copy()
             # ----- Fim continua atividades ja iniciadas ----- #
@@ -150,6 +158,8 @@ class Sistema:
                     self.filtros_imagem.terminar()
                 elif atividade == 3:
                     self.face_mesh_background.terminar()
+                elif atividade == 4:
+                    self.jogo.terminar()
 
                 # Remove atividade iniciada
                 del (atividades_temp[idx - qtd_excluida])
@@ -194,7 +204,7 @@ class Sistema:
                 if not any([1 in self.atividades_inicia, 1 in self.atividades_continua, 1 in self.atividades_termina]):
                     self.atividades_inicia.append(1)
                     self.mudar_atividade_principal([0, 1])
-                    self.atividades_permitidas_serem_iniciadas = [2]
+                    self.atividades_permitidas_serem_iniciadas = [2, 4]
             return 2
         # Levantar indicador, mindinho e polegar para acessar face mesh com background
         elif len(dedos_levantados) == 3 and 1 in dedos_levantados and 4 in dedos_levantados and 5 in dedos_levantados:

@@ -50,13 +50,12 @@ class Menu(Atividade):
                     else:
                         return 1
                 # Menu de jogos
-                elif self.menu_atual == 3.0 and contador_dedo in [6]:
+                elif self.menu_atual == 3.0 and contador_dedo in [1,6]:
                     if contador_dedo == 6:
                         self.menu_atual = 1.0
                         self._gerar_menu(self.menu_atual)
-                    # TODO: Ativar quando tiver opcoes no menu
-                    # else:
-                    #    return 1
+                    else:
+                        return 1
 
                 self.contador_delay_selec_opcao = -10
                 return 0
@@ -87,7 +86,7 @@ class Menu(Atividade):
             self.quadro.escrever('6 - Voltar', (10, 420))
         elif tipo_menu == 3.0:
             self.quadro.escrever('Menu - Jogos', (int(self.quadro.get_shape()[0] / 5), 50))
-            self.quadro.escrever('x - Em breve', (10, 110))
+            self.quadro.escrever('1 - Skier-Game', (10, 110))
             self.quadro.escrever('x - Em breve', (10, 170))
             self.quadro.escrever('6 - Voltar', (10, 420))
         self.quadro.mostrar()

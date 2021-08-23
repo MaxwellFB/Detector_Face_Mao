@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Games
+Skier_Game_Like_Gym/
+
 # C extensions
 *.so
 

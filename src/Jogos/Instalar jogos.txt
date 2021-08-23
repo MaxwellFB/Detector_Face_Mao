@@ -1,0 +1,1 @@
+Skier_Game_Like_Gym = git clone https://github.com/MaxwellFB/Skier_Game_Like_Gym
