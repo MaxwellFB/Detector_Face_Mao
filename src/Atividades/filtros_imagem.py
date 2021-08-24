@@ -40,9 +40,7 @@ class FiltrosImagem(Atividade):
         # Dilate
         elif self.opcao_selecionada == 5:
             if intensidade != 0:
+                intensidade += 1
                 imagem = cv2.dilate(imagem, np.ones((intensidade, intensidade), np.uint8))
-        # TODO: Tirar corpo deste local
-        # elif opcao_selecionada == 6:
-        #    imagem = self.corpo.segmentar(imagem, marcas_segmentacao_corpo)
 
         return imagem
