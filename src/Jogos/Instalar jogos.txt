@@ -1,1 +1,2 @@
 Skier_Game_Like_Gym = git clone https://github.com/MaxwellFB/Skier_Game_Like_Gym
+Car_Race_Game_Like_Gym = git clone https://github.com/MaxwellFB/Car_Race_Game_Like_Gym.git

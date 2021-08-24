@@ -50,7 +50,7 @@ class Menu(Atividade):
                     else:
                         return 1
                 # Menu de jogos
-                elif self.menu_atual == 3.0 and contador_dedo in [1,6]:
+                elif self.menu_atual == 3.0 and contador_dedo in [1, 2, 6]:
                     if contador_dedo == 6:
                         self.menu_atual = 1.0
                         self._gerar_menu(self.menu_atual)
@@ -86,7 +86,7 @@ class Menu(Atividade):
             self.quadro.escrever('6 - Voltar', (10, 420))
         elif tipo_menu == 3.0:
             self.quadro.escrever('Menu - Jogos', (int(self.quadro.get_shape()[0] / 5), 50))
-            self.quadro.escrever('1 - Skier-Game', (10, 110))
-            self.quadro.escrever('x - Em breve', (10, 170))
+            self.quadro.escrever('1 - Skier', (10, 110))
+            self.quadro.escrever('2 - Car Race', (10, 170))
             self.quadro.escrever('6 - Voltar', (10, 420))
         self.quadro.mostrar()

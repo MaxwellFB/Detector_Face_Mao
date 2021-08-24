@@ -89,7 +89,7 @@ class Sistema:
                 elif atividade == 3:
                     self.face_mesh_background.iniciar(self.face_mesh)
                 elif atividade == 4:
-                    self.jogo.iniciar(opcao_selecionada)
+                    self.jogo.iniciar(opcao_selecionada, frame_originial.shape)
 
                 # Passa para proxima etapa
                 self.atividades_continua.append(atividade)

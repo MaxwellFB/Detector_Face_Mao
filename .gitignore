@@ -5,6 +5,7 @@ __pycache__/
 
 # Games
 Skier_Game_Like_Gym/
+Car_Race_Game_Like_Gym/
 
 # C extensions
 *.so
