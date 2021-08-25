@@ -25,13 +25,19 @@ class Jogos(Atividade):
         # Sckier
         if self.opcao_selecionada == 1:
             self.jogo = Game()
-            self.jogo.start(keyboard_game=False, increase_speed=1, low_speed=6, max_speed=15)
+            # OBS: Testado apenas em CPU
+            # CPU: low_speed = 10 e max_speed = 15
+            # GPU = low_speed = 6 e max_speed = 11
+            self.jogo.start(keyboard_game=False, increase_speed=1, low_speed=10, max_speed=15)
         # Car Race
         elif self.opcao_selecionada == 2:
             self.divisoria1 = int(self.shape_image[1] / 3) / self.shape_image[1]
             self.divisoria2 = self.divisoria1 * 2
 
-            self.jogo = CarRacing(keyboard_game=False, increase_speed=1, low_enemy_car_speed=31, max_enemy_car_speed=38) #5 11
+            # OBS: Testado apenas em CPU
+            # CPU: low_speed = 20 e max_speed = 24
+            # GPU = low_speed = 5 e max_speed = 9
+            self.jogo = CarRacing(keyboard_game=False, increase_speed=1, low_enemy_car_speed=20, max_enemy_car_speed=24)
             self.jogo.start()
 
     def continuar(self, marcas_corpo):
@@ -54,7 +60,6 @@ class Jogos(Atividade):
                 # Esquerda
                 for marca in marcas_corpo.landmark:
                     # Esquerda
-                    print(marca.x)
                     if marca.x < self.divisoria1:
                         contador_divisorias[0] += 1
                     # Meio

@@ -17,9 +17,6 @@ def main():
 class Sistema:
     def __init__(self):
         """Metodo principal"""
-        # ----- CONFIGURACOES ----- #
-        # self.is_desenha = False
-        # ------------------------- #
 
         # Instancia detectores
         self.mao = DetectaMao()
@@ -111,12 +108,17 @@ class Sistema:
                     frame = self.mao.desenhar(frame_originial, marcas_mao)
             if any(atividade in self.atividades_usam_face for atividade in self.atividades_continua):
                 marcas_face = self.face.detectar(frame_originial)
+                #if marcas_face:
+                #    frame = self.face.desenhar_box(frame_originial, marcas_face)
             if any(atividade in self.atividades_usam_face_mesh for atividade in self.atividades_continua):
                 marcas_face_mesh = self.face_mesh.detectar(frame_originial)
+                #if marcas_face_mesh:
+                #    frame = self.face_mesh.desenhar(frame_originial, marcas_face_mesh)
             if any(atividade in self.atividades_usam_corpo for atividade in self.atividades_continua):
                 marcas_corpo, marcas_segmentacao_corpo = self.corpo.detectar(frame_originial)
                 if marcas_corpo:
                     frame = self.corpo.desenhar(frame_originial, marcas_corpo)
+                    # frame = self.corpo.segmentar(frame, marcas_segmentacao_corpo)
             # ----- Fim coleta informacoes ----- #
 
             # ----- Continua atividades ja iniciadas ----- #
@@ -135,7 +137,7 @@ class Sistema:
                 elif atividade == 2:
                     frame = self.filtros_imagem.continuar(frame, contador_dedo)
                 elif atividade == 3:
-                    frame = self.face_mesh_background.continuar(frame_originial, marcas_face_mesh)
+                    frame = self.face_mesh_background.continuar(frame, marcas_face_mesh)
                 elif atividade == 4:
                     self.jogo.continuar(marcas_corpo)
 
@@ -167,18 +169,6 @@ class Sistema:
 
             self.atividades_termina = atividades_temp.copy()
             # ----- Fim termina atividades ----- #
-
-            # TODO: Desativado, exige muitas alteracoes para funcionar. Nao eh prioridade
-            '''
-            # Se deseja desenhar as deteccoes de face
-            if self.is_desenha:
-                if marcas_face:
-                    frame = self.face.desenhar_box(frame, marcas_face)
-                if marcas_face_mesh:
-                    frame = self.face_mesh.desenhar(frame, marcas_face_mesh)
-                if marcas_corpo:
-                    frame = self.corpo.desenhar(frame, marcas_corpo)
-            '''
 
             cv2.imshow('Face', frame)
             if cv2.waitKey(5) & 0xFF == 27:
