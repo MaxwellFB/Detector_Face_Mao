@@ -3,11 +3,11 @@
 from .atividade import Atividade
 import numpy as np
 try:
-    from ..Jogos.Skier_Game_Like_Gym.Skier import Game
+    from Jogos.Skier_Game_Like_Gym.Skier import Game
 except ModuleNotFoundError:
     raise ModuleNotFoundError('Jogo "Skier_Game_Like_Gym" nao encontrado, favor baixar repositorio em: "https://github.com/MaxwellFB/Skier_Game_Like_Gym" e colocar dentro da pasta "Jogos".')
 try:
-    from ..Jogos.Car_Race_Game_Like_Gym.car_race import CarRacing
+    from Jogos.Car_Race_Game_Like_Gym.car_race import CarRacing
 except ModuleNotFoundError:
     raise ModuleNotFoundError('Jogo "Car_Race_Game_Like_Gym" nao encontrado, favor baixar repositorio em: "https://github.com/MaxwellFB/Car_Race_Game_Like_Gym" e colocar dentro da pasta "Jogos".')
 

@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 import mediapipe as mp
 
+
 class DetectaCorpo:
     def __init__(self):
         self.mp_drawing = mp.solutions.drawing_utils

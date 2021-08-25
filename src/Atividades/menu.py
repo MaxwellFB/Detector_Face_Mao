@@ -1,7 +1,7 @@
 """Atividade para manipular quadro de opcoes (menu)"""
 
 from .atividade import Atividade
-from ..quadro import Quadro
+from quadro import Quadro
 
 
 class Menu(Atividade):
